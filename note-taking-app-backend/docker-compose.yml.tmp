@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  backend:
+    env_file: .env
+    container_name: backend
+    build: .
+    volumes:
+    - '.:/src'
+    ports:
+    - 3001:3001
+    command: npm start
+
+  db:
+    image: postgres
+    ports: 
+    - 5432:5432
+    env_file: .env
+    volumes:
+    - ./postgresql/data:/var/lib/postgresql/data

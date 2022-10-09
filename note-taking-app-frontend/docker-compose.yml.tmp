@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  frontend:
+    env_file: .env
+    container_name: frontend
+    build: .
+    volumes:
+    - '.:/src'
+    ports:
+    - 3000:3000
+    command: npm start

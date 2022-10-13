@@ -1,8 +1,12 @@
 version: "3"
 services:
   frontend:
-    env_file: note-taking-app-frontend/.env
+    # env_file: note-taking-app-frontend/.env
     image: frontend
+    environment:
+     - REACT_APP_BACKEND=http://localhost:3001
+     - REACT_APP_DOMAIN=${REACT_APP_DOMAIN}
+     - REACT_APP_CLIENTID=${REACT_APP_CLIENTID}
     stdin_open: true
     ports: 
       - "3000:3000"
@@ -12,9 +16,8 @@ services:
     # env_file: note-taking-app-backend/.env
     image: backend
     environment:
-      - REACT_APP_BACKEND=http://localhost:3001
-      - REACT_APP_DOMAIN=dev-idli2clb.us.auth0.com
-      - REACT_APP_CLIENTID=66yR74o1o84Sbs2T3tSuVCPjiUI3nRHU
+      - POSTGRES_URL=postgres://postgres:dev12345@db:5432/note_app
+      - PORT=3001
     ports:
       - "3001:3001"
     networks:
@@ -26,12 +29,11 @@ services:
     # env_file: note-taking-app-backend/.env
     environment:
       - POSTGRES_DB="note_app"
-      - PORT=3001
       - PGUSER=postgres
       - PGPASSWORD=dev12345
       - PGDATABASE=note_app
       - PGPORT=5432
-      - POSTGRES_URL=postgres://postgres:dev12345@db:5432/note_app
+
     ports:
       - "5432:5432"
     networks:

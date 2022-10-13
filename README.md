@@ -5,18 +5,6 @@
 - To stop `make stop`
 
 
-the client and server will both need `.env` files in order to run....
+# Environment Variables
 
-## Client
-- REACT_APP_BACKEND
-- REACT_APP_DOMAIN
-- REACT_APP_CLIENTID
-
-## Server
-- PORT
-- PGUSER
-- PGPASSWORD
-- PGDATABASE
-- PGPORT
-- POSTGRES_URL
-> TODO:  What can go in docker-compose and what needs to be behind a .env file?
+- You will need to provide your own Auth0 credentials through the following variables `REACT_APP_DOMAIN` and `REACT_APP_CLIENTID` via a .env file at the root of this repo.

@@ -1,7 +1,6 @@
 version: "3"
 services:
   frontend:
-    # env_file: note-taking-app-frontend/.env
     image: frontend
     environment:
      - REACT_APP_BACKEND=http://localhost:3001
@@ -13,7 +12,6 @@ services:
     networks:
       - note-app
   backend:
-    # env_file: note-taking-app-backend/.env
     image: backend
     environment:
       - POSTGRES_URL=postgres://postgres:dev12345@db:5432/note_app
@@ -26,7 +24,6 @@ services:
       - db
   db:
     image: postgres
-    # env_file: note-taking-app-backend/.env
     environment:
       - POSTGRES_DB="note_app"
       - PGUSER=postgres
@@ -46,26 +43,3 @@ networks:
 volumes:
   postgres:
     driver: local
-
-
-# version: '3'
-
-# services:
-
-#   backend:
-#     env_file: .env
-#     container_name: backend
-#     build: .
-#     volumes:
-#     - '.:/src'
-#     ports:
-#     - 3001:3001
-#     command: npm start
-
-#   db:
-#     image: postgres
-#     ports: 
-#     - 5432:5432
-#     env_file: .env
-#     volumes:
-#     - ./postgresql/data:/var/lib/postgresql/data

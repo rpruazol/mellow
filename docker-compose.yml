@@ -24,25 +24,22 @@ services:
       - REACT_APP_BACKEND=http://localhost:3001
       - REACT_APP_DOMAIN=${REACT_APP_DOMAIN}
       - REACT_APP_CLIENTID=${REACT_APP_CLIENTID}
-
+      - CHOKIDAR_USEPOLLING=true
     stdin_open: true
     ports: 
       - "3000:3000"
-      - "9229:9229"
     networks:
       - note-app
     volumes:
-      - ./note-taking-app-frontend:/src
+      - ./note-taking-app-frontend:/src:ro
       - /src/node_modules
-    # command:
-      # - nodemon
-      # - --inspect=0.0.0.0:9229      
+
   backend:
     image: backend
     environment:
       - POSTGRES_URL=postgres://postgres:dev12345@note-taking-app-db-1:5432/note_app
       - PORT=3001
-
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - "3001:3001"
     networks:
@@ -50,6 +47,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - ./note-taking-app-backend:/src
+      - /src/node_modules
+
+
 
 networks:
   note-app:

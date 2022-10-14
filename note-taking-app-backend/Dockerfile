@@ -19,3 +19,4 @@ EXPOSE 3001
 
 # Starting our application
 CMD npm start
+

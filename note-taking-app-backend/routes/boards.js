@@ -9,6 +9,7 @@ require('dotenv').config();
 
 
 router.get('/', (req, res) => {
+  console.log('getting boards')
   const SQL = `select * from boards order by board_order;`
   client.query(SQL)
     .then(response => {
@@ -18,6 +19,7 @@ router.get('/', (req, res) => {
 
 
 router.post('/', (req, res) => {
+  console.log('creating new board')
   const SQL = 'INSERT INTO boards (name, board_order, created_at) VALUES ($1, $2, NOW()) RETURNING *'
   const values = [req.body.title, (req.body.board_order)+1]
   client.query(SQL, values, (err, res) => {
@@ -31,7 +33,7 @@ router.post('/', (req, res) => {
 })
 
 router.put('/', (req, res) => {
-
+  console.log('saving board order')
   const values = req.body.new_order.map(obj => {
     return [`(${obj.id}, ${obj.board_order})`].join(',')
   }).join(',')
@@ -49,7 +51,7 @@ router.put('/', (req, res) => {
 })
 
 router.delete('/', (req, res) => {
-  console.log('delete info: ', req.body.board);
+  console.log('deleting board');
   // delete the board and all the notes associated with it
   const SQL = `DELETE from boards where id=$1;`;
   const values = [req.body.board.id];

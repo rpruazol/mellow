@@ -9,6 +9,7 @@ const client = require('../db')
 
 
 router.get('/', (req, res) => {
+  console.log('getting notes')
   const SQL = `select * from notes where board_id='${req.query.id}';`
   client.query(SQL)
     .then(response => {
@@ -18,6 +19,7 @@ router.get('/', (req, res) => {
 
 
 router.delete('/', (req, res) => {
+  console.log('deleting note')
   const SQL = 'DELETE FROM notes WHERE id=$1';
   const params = [req.body.id]
 
@@ -32,7 +34,7 @@ router.delete('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log(req.body)
+  console.log('creating note')
   const SQL = 'INSERT INTO notes (title, description, board, board_id, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING *'
   const values = [req.body.title, req.body.description, req.body.board, req.body.board_id];
   client.query(SQL, values, (err, res) => {

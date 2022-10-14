@@ -10,11 +10,9 @@ function verifyUser(req, res, next) {
     req.user = user;
     next();
   }
-  console.log('req: ', req.headers)
   try {
     const token = req.headers.authorization.split(' ')[1];
 
-    console.log('Token: ', token);
     jwt.verify(token, getKey, {}, valid);
 
   } catch (error) {

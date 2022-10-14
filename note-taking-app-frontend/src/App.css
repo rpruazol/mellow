@@ -94,3 +94,7 @@ button:hover {
   width: 100%;
   position:fixed;
 }
+
+#header {
+  display: block;
+}

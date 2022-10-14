@@ -13,7 +13,7 @@ services:
     networks:
       - note-app
     volumes:
-      - ./note-taking-app-backend/postgresql/data:/var/lib/postgresql/data
+      # - ./note-taking-app-backend/postgresql/data:/var/lib/postgresql/data
       - ./sql/seed.sql:/docker-entrypoint-initdb.d/seed.sql
     healthcheck:
       test: pg_isready -U postgres
@@ -21,20 +21,28 @@ services:
   frontend:
     image: frontend
     environment:
-     - REACT_APP_BACKEND=http://localhost:3001
-     - REACT_APP_DOMAIN=${REACT_APP_DOMAIN}
-     - REACT_APP_CLIENTID=${REACT_APP_CLIENTID}
+      - REACT_APP_BACKEND=http://localhost:3001
+      - REACT_APP_DOMAIN=${REACT_APP_DOMAIN}
+      - REACT_APP_CLIENTID=${REACT_APP_CLIENTID}
+
     stdin_open: true
     ports: 
       - "3000:3000"
+      - "9229:9229"
     networks:
       - note-app
-      
+    volumes:
+      - ./note-taking-app-frontend:/src
+      - /src/node_modules
+    # command:
+      # - nodemon
+      # - --inspect=0.0.0.0:9229      
   backend:
     image: backend
     environment:
       - POSTGRES_URL=postgres://postgres:dev12345@note-taking-app-db-1:5432/note_app
       - PORT=3001
+
     ports:
       - "3001:3001"
     networks:

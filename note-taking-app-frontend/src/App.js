@@ -4,6 +4,7 @@ import Main from './Main.js'
 
 
 function App() {
+  console.log('hello world!')
   return (
     <div className="App">
       <Main />

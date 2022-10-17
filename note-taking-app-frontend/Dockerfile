@@ -11,7 +11,6 @@ WORKDIR /src
 # Installing dependencies
 COPY ./package.json /src
 RUN npm install
-RUN npm install -g nodemon
 
 # Copying all the files in our project
 COPY . /src

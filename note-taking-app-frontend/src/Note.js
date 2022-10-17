@@ -11,7 +11,7 @@ export default function Note(props) {
 
   const deleteNote = async (id) => {
 
-    console.log('id', id);
+    console.log('ids', id);
     if(window.confirm('are you sure')){
 
       const config = {

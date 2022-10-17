@@ -96,5 +96,11 @@ button:hover {
 }
 
 #header {
-  display: block;
+  display: flex;
+  color: whitesmoke;
+  justify-content: flex-end;
+}
+
+#header > * {
+  padding: 15px;
 }

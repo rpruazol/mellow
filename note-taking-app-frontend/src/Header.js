@@ -1,37 +1,40 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import User from './User';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DropdownUser from './DropdownUser';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 function Header(props) {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   console.log(props)
   return (
     <>
-      <Navbar bg="dark" variant="dark" style={{ "borderBottom": "1px solid grey" }}>
-        <Container className="ms-3" id="header">
-    <Router>
-      <Routes>
-              <Route
+      <Navbar id="header" bg="dark" variant="dark" style={{ "borderBottom": "1px solid grey" }}>
+        <Router>
+          <Routes>
+            <Route
               exact
               path="/"
-                element={props.isAuthenticated ?
+              element={
+                props.isAuthenticated ?
                   <>
-                    <LogoutButton>Logout</LogoutButton>
-                    <User>User</User>
+                    <h2>Welcome {user.given_name}</h2>
+                    <h2 style={{ padding: "10x" }}>(Not you?
+                      )</h2>
+                    <LogoutButton />
                   </>
                   :
-                  <>
                   <LoginButton>Login</LoginButton>
-                  </>
-                }
-                />
-      </Routes>
-      </Router>
-        </Container>
+              }
+            />
+          </Routes>
+        </Router>
       </Navbar>
     </>
   );

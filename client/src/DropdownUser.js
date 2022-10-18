@@ -1,6 +1,6 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Routes, Route, NavLink } from "react-router-dom";
 import User from './User';
 
 

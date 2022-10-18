@@ -1,11 +1,8 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
-import User from './User';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DropdownUser from './DropdownUser';
 import { useAuth0 } from "@auth0/auth0-react";
 
 

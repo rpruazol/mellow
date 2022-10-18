@@ -1,16 +1,16 @@
 IMAGES := $(shell docker images -aq)
 
 build:
-	cd note-taking-app-backend && $(MAKE) build
-	cd note-taking-app-frontend && $(MAKE) build
+	cd server && $(MAKE) build
+	cd client && $(MAKE) build
 
 run:
-	docker-compose up
+	docker compose up
 
 stop:
-	docker-compose down
+	docker compose down
 
 delete:
-	docker-compose down
+	docker compose down
 	docker rmi -f $(IMAGES)
-	rm -rf note-taking-app-backend/postgresql
+	rm -rf server/postgresql

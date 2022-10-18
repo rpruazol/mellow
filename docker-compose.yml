@@ -1,6 +1,7 @@
 version: "3"
 services:
   db:
+    container_name: notes_db
     image: postgres
     environment:
       - POSTGRES_DB=note_app
@@ -13,12 +14,12 @@ services:
     networks:
       - note-app
     volumes:
-      # - ./note-taking-app-backend/postgresql/data:/var/lib/postgresql/data
       - ./sql/seed.sql:/docker-entrypoint-initdb.d/seed.sql
     healthcheck:
       test: pg_isready -U postgres
 
   frontend:
+    container_name: notes_frontend
     image: frontend
     environment:
       - REACT_APP_BACKEND=http://localhost:3001
@@ -31,13 +32,16 @@ services:
     networks:
       - note-app
     volumes:
-      - ./note-taking-app-frontend:/src:ro
+      - ./client:/src:ro
       - /src/node_modules
+    depends_on:
+      - backend
 
   backend:
+    container_name: notes_backend
     image: backend
     environment:
-      - POSTGRES_URL=postgres://postgres:dev12345@note-taking-app-db-1:5432/note_app
+      - POSTGRES_URL=postgres://postgres:dev12345@notes_db:5432/note_app
       - PORT=3001
       - CHOKIDAR_USEPOLLING=true
     ports:
@@ -48,7 +52,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./note-taking-app-backend:/src
+      - ./server:/src
       - /src/node_modules
 
 

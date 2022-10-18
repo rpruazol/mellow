@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Header from './Header';
 import axios from 'axios';
-import { Sortable, Plugins } from '@shopify/draggable';
+import { Sortable } from '@shopify/draggable';
 import Board from './Board';
 import Row from 'react-bootstrap/Row';
 import BoardModal from './BoardModal'
 import Button from 'react-bootstrap/Button';
 import { useAuth0 } from "@auth0/auth0-react";
-import User from './User'
 
 
 
@@ -31,8 +30,7 @@ function Main(props) {
         new_order: arr
       }
     }
-    const response = await axios(config);
-    console.log(user);
+    await axios(config);
 
   }
 

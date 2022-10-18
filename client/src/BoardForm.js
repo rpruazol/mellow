@@ -7,14 +7,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function BoardForm(props) {
   const [boardTitle, setTitle] = useState('');
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   const createBoard = async (e) => {
     e.preventDefault()
     if (window.confirm('are you sure?')) {
       const res = await getAccessTokenSilently();
       const jwt = res;
-      console.log('jwt', jwt, 'res', res)
       // get count of how many boards exist
       let config = {
         headers: { Authorization: `Bearer ${jwt}` },

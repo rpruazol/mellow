@@ -1,7 +1,8 @@
 require('dotenv').config();
 const pg = require('pg');
 const client = new pg.Client(process.env.POSTGRES_URL);
-console.log(client)
+console.log('POSTGRES_URL', POSTGRES_URL);
+console.log('client', client);
 
 client.connect(err => {
   if (err) {

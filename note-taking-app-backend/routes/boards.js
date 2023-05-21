@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
 
 
 router.post('/', (req, res) => {
+  console.log('creating new board ', req.query)
   const SQL = 'INSERT INTO boards (name, board_order, created_at) VALUES ($1, $2, NOW()) RETURNING *'
   const values = [req.body.title, (req.body.board_order)+1]
   client.query(SQL, values, (err, res) => {

@@ -14,7 +14,7 @@ services:
   backend:
     image: backend
     environment:
-      - POSTGRES_URL=postgres://postgres:dev12345@db:5432/note_app
+      - POSTGRES_URL=postgres://postgres:dev12345@note-taking-app-db-1:5432/note_app
       - PORT=3001
     ports:
       - "3001:3001"
@@ -25,18 +25,17 @@ services:
   db:
     image: postgres
     environment:
-      - POSTGRES_DB="note_app"
-      - PGUSER=postgres
-      - PGPASSWORD=dev12345
-      - PGDATABASE=note_app
-      - PGPORT=5432
-
+      - POSTGRES_DB=note_app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=dev12345
+      - POSTGRES_PORT=5432
     ports:
       - "5432:5432"
     networks:
       - note-app
     volumes:
       - ./note-taking-app-backend/postgresql/data:/var/lib/postgresql/data
+      - ./note-taking-app-backend/init:/docker-entrypoint-initdb.d/
 networks:
   note-app:
     driver: bridge

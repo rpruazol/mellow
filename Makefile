@@ -1,4 +1,4 @@
-IMAGES := $(shell docker images -aq)
+IMAGES := $(shell docker images -aq --filter=reference='notes_*')
 
 build:
 	cd server && $(MAKE) build

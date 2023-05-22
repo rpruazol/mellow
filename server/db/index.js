@@ -1,6 +1,8 @@
 require('dotenv').config();
 const pg = require('pg');
+console.log(process.env.POSTGRES_URL);
 const client = new pg.Client(process.env.POSTGRES_URL);
+console.log(client);
 
 client.connect(err => {
   if (err) {

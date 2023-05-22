@@ -8,7 +8,7 @@ run:
 	docker compose up
 
 stop:
-	docker compose down
+	docker compose down 
 
 delete:
 	docker compose down

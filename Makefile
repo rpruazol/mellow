@@ -1,4 +1,4 @@
-IMAGES := $(shell docker images -aq)
+IMAGES := $(shell docker images -aq --filter=reference='notes_*')
 
 build:
 	cd server && $(MAKE) build
@@ -8,7 +8,7 @@ run:
 	docker compose up
 
 stop:
-	docker compose down
+	docker compose down 
 
 delete:
 	docker compose down

@@ -18,4 +18,4 @@ COPY . /src
 EXPOSE 3000
 
 # Starting our application
-CMD npm start
+CMD ["npm", "run", "start"]

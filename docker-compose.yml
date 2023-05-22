@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     container_name: notes_db
-    image: postgres
+    image: notes_postgres_db
     environment:
       - POSTGRES_DB=note_app
       - POSTGRES_USER=postgres
@@ -20,7 +20,7 @@ services:
 
   frontend:
     container_name: notes_frontend
-    image: frontend
+    image: notes_frontend_image
     environment:
       - REACT_APP_BACKEND=http://localhost:3001
       - REACT_APP_DOMAIN=${REACT_APP_DOMAIN}
@@ -32,14 +32,14 @@ services:
     networks:
       - note-app
     volumes:
-      - ./client:/src:ro
+      - ./client:/src
       - /src/node_modules
     depends_on:
       - backend
 
   backend:
     container_name: notes_backend
-    image: backend
+    image: notes_backend_image
     environment:
       - POSTGRES_URL=postgres://postgres:dev12345@notes_db:5432/note_app
       - PORT=3001

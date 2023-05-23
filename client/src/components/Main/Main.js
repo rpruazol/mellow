@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Header from './Header';
+import Header from '../Header/Header';
 import axios from 'axios';
 import { Sortable } from '@shopify/draggable';
-import Board from './Board';
+import Board from '../Board/Board';
 import Row from 'react-bootstrap/Row';
-import BoardModal from './BoardModal'
+import BoardModal from '../BoardModal/BoardModal'
 import Button from 'react-bootstrap/Button';
 import { useAuth0 } from "@auth0/auth0-react";
 

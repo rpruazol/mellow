@@ -3,7 +3,7 @@ services:
   db:
     container_name: notes_postgres_db
     image: postgres
-    environment:
+    env_file:
       - .env
     ports:
       - "5432:5432"

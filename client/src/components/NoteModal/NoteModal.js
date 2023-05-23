@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import NoteForm from './NoteForm';
+import NoteForm from '../NoteForm/NoteForm';
 
 export default function NoteModal(props) {
 

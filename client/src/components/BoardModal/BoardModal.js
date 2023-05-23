@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 
-import BoardForm from './BoardForm'
+import BoardForm from '../BoardForm/BoardForm'
 
 export default function BoardModal(props) {
 

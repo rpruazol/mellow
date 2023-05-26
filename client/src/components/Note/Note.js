@@ -1,14 +1,16 @@
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import React from 'react';
 import axios from 'axios';
+import NoteModal from '../NoteModal/NoteModal';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
 
 export default function Note(props) {
+  const [modalOpen, showModal] = useState(false);
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-
+  
   const deleteNote = async (id) => {
 
     console.log('ids', id);
@@ -29,6 +31,7 @@ export default function Note(props) {
       props.getNotes(props.data.board_id)
     }
   }
+
   return (
     <Card className="mt-3 mb-3" key={props.id}>
       <Card.Body key={props.id}>
@@ -36,8 +39,14 @@ export default function Note(props) {
         <Card.Text>
           {props.data.description}
         </Card.Text>
-        <Button variant="primary">Edit</Button>
-
+        <Button variant="primary" onClick={showModal}>Edit</Button>
+        <NoteModal
+        state='edit'
+        boardObj={props.data}
+        showModal={showModal}
+        show={modalOpen}
+        getNotes={props.getNotes}
+      />
         <Button variant="primary" onClick={() => deleteNote(props.data.id)}>Delete</Button>
 
       </Card.Body>

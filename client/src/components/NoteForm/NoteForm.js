@@ -5,12 +5,15 @@ import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function NoteForm(props) {
-  const [noteTitle, setTitle] = useState('');
-  const [noteDescription, setDescription] = useState('');
+  const [noteTitle, setTitle] = useState(props.boardObj.title) || useState('');
+  const [noteDescription, setDescription] = useState(props.boardObj.description) || useState('');
   const { getAccessTokenSilently } = useAuth0();
+  console.log('current title', noteTitle)
+  console.log('current description', noteDescription)
+  console.log('current status', props.state)
 
-  console.log('NoteForm props: ', props.boardObj)
   const createNote = async (e) => {
+    console.log('creating note')
     e.preventDefault()
     if(window.confirm('are you sure?')) {
       const jwt = await getAccessTokenSilently();
@@ -36,17 +39,39 @@ export default function NoteForm(props) {
       return
     }
   }
-
+  const editNote = async (e) => {
+    e.preventDefault()
+    console.log('editing note')
+    const config = {
+      headers: { Authorization: `Bearer ${await getAccessTokenSilently()}` },
+      url: '/notes',
+      method: 'put',
+      baseURL: process.env.REACT_APP_BACKEND,
+      data: {
+        id: props.boardObj.id,
+        title: noteTitle,
+        description: noteDescription
+      }
+    }
+    console.log(config.data)
+    await axios(config);
+    props.showModal(false);
+    props.getNotes(props.boardObj.id);
+  }
 
 
   return (
-    <Form onSubmit={(e) => createNote(e)}>
+
+  
+
+    <Form onSubmit={props.state ? (e) => editNote(e) : (e) => createNote(e)}>
       <Form.Group className="mb-3" controlId="note-title">
         <Form.Label>Note Title</Form.Label>
         <Form.Control
           type="text"
           autoFocus
           onChange={(e) => setTitle(e.target.value)}
+          defaultValue={props.boardObj.title || noteTitle}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="note-description">
@@ -55,14 +80,16 @@ export default function NoteForm(props) {
         <Form.Control
           as="textarea"
           rows={3}
-          onChange={(e) => setDescription(e.target.value)} />
+          onChange={(e) => setDescription(e.target.value)} 
+          defaultValue={props.boardObj.description || noteDescription}
+          />
       </Form.Group>
 
       <Button variant="secondary" onClick={() => props.showModal(false)}>
         Close
       </Button>
       <Button variant="primary" type="submit">
-        Add Note
+        Submit
       </Button>
     </Form>
   );

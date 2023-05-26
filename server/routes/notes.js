@@ -48,4 +48,18 @@ router.post('/', (req, res) => {
 
 })
 
+router.put ('/', (req, res) => {
+  console.log('editing note', req.body)
+  const values = [req.body.title, req.body.description, req.body.id];
+  const SQL = 'UPDATE notes SET title=$1, description=$2, updated_at=NOW() WHERE board_id=$3 RETURNING *';
+  client.query(SQL, values, (err, res) => {
+    if(err) {
+      console.log(err.stack)
+    } else {
+      console.log(res);
+    }
+  })
+  res.status(200).send(req.body);
+})
+
 module.exports = router;

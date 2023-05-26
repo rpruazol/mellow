@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import NoteModal from './NoteModal';
+import NoteModal from '../NoteModal/NoteModal';
 import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -9,7 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 
 
-import Note from './Note';
+import Note from '../Note/Note';
 
 export default function Board(props) {
   const [modalOpen, showModal] = useState(false);

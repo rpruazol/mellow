@@ -10,7 +10,7 @@ services:
     networks:
       - note-app
     volumes:
-      - ./sql/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: pg_isready -U postgres
 

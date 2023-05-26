@@ -32,20 +32,6 @@ export default function Note(props) {
     }
   }
 
-  const editNote = async (note) => {
-
-    const config = {
-      headers: { Authorization: `Bearer ${await getAccessTokenSilently()}` },
-      url: '/notes',
-      method: 'edit',
-      baseURL: process.env.REACT_APP_BACKEND,
-      data: {
-        id: note.id,
-        title: note.title,
-        description: note.description
-      }
-    }
-  }
   return (
     <Card className="mt-3 mb-3" key={props.id}>
       <Card.Body key={props.id}>

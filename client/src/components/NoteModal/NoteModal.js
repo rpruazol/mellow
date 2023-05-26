@@ -17,6 +17,7 @@ export default function NoteModal(props) {
           boardObj={props.boardObj}
           showModal={props.showModal}
           getNotes={props.getNotes}
+          state={props.state}
           />
         </Modal.Body>
       </Modal>

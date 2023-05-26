@@ -8,7 +8,9 @@ export default function NoteModal(props) {
     <>
       <Modal show={props.show} onHide={() => props.showModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add a new Note!</Modal.Title>
+          <Modal.Title>
+            {props.state === 'edit' ?'Edit note' : 'Add a new Note'}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <NoteForm

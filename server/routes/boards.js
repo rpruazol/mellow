@@ -8,29 +8,16 @@ const format = require('pg-format');
 require('dotenv').config();
 
 
-router.get('/', (req, res) => {
-  console.log('getting boards')
-  const SQL = `select * from boards order by board_order;`
-  client.query(SQL)
+router.post('/', (req, res) => {
+  console.log('getting boards for', req.body)
+  const values = [req.body.user_id]
+  const SQL = `select * from boards where user_id = $1 order by board_order;`
+  client.query(SQL, values)
     .then(response => {
       res.status(200).send(response.rows);
     })
 })
 
-
-router.post('/', (req, res) => {
-  console.log('creating new board')
-  const SQL = 'INSERT INTO boards (name, board_order, created_at) VALUES ($1, $2, NOW()) RETURNING *'
-  const values = [req.body.title, (req.body.board_order)+1]
-  client.query(SQL, values, (err, res) => {
-    if (err) {
-      console.log(err.stack)
-    } else {
-      console.log('created board: ', res.rows[0]);
-    }
-  })
-  res.status(200).send(req.body);
-})
 
 router.put('/', (req, res) => {
   console.log('saving board order')

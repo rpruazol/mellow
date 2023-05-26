@@ -44,7 +44,11 @@ function Main(props) {
       const config = {
         headers: { Authorization: `Bearer ${jwt}` },
         baseURL: process.env.REACT_APP_BACKEND,
-        url: '/boards'
+        url: '/boards',
+        method: 'post',
+        data: {
+          user_id: user.email
+        }
       }
       const response = await axios(config)
       setBoards(response.data);
